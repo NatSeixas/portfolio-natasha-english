@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Natasha Seixas — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET & BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0e0e0e;
+      --white: #f5f2eb;
+      --cream: #f0ece2;
+      --gold: #c9a84c;
+      --gold-light: #e8d5a3;
+      --muted: #7a7060;
+      --border: rgba(201,168,76,0.25);
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--cream);
+      color: var(--black);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--gold-light); color: var(--black); }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(240,236,226,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.1rem; font-weight: 700;
+      letter-spacing: .04em; color: var(--black); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted); font-size: .8rem;
+      font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 7rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(201,168,76,.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(201,168,76,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono); font-size: .72rem; letter-spacing: .28em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: .8rem;
+    }
+    .hero-eyebrow span { display: inline-block; width: 32px; height: 1px; background: var(--gold); }
+    .hero-title {
+      font-family: var(--serif); font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-weight: 400; line-height: 1.02; letter-spacing: -.01em;
+      color: var(--black); margin-bottom: .4rem;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-subtitle {
+      font-family: var(--mono); font-size: .78rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--muted); margin: 1.4rem 0 .8rem;
+    }
+    .hero-quote {
+      font-family: var(--serif); font-style: italic; font-size: 1rem;
+      color: var(--muted); margin-bottom: 2.5rem; max-width: 380px;
+    }
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      padding: .75rem 2rem; background: var(--gold); color: var(--black);
+      border: none; border-radius: 2px; font-family: var(--sans);
+      font-size: .82rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; text-decoration: none; cursor: pointer;
+      transition: all .2s; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--black); color: var(--gold); }
+    .btn-outline {
+      padding: .75rem 2rem; background: transparent; color: var(--black);
+      border: 1px solid rgba(14,14,14,.3); border-radius: 2px;
+      font-family: var(--sans); font-size: .82rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer; transition: all .2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      font-family: var(--mono); font-size: .68rem; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--muted);
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      animation: bounce 2.5s infinite;
+    }
+    .hero-scroll::after {
+      content: ''; display: block; width: 1px; height: 32px; background: var(--muted);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: var(--mono); font-size: .68rem; letter-spacing: .3em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .8rem;
+    }
+    .section-label::before {
+      content: attr(data-num); font-size: .6rem;
+    }
+    .section-title {
+      font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 400; line-height: 1.1; margin-bottom: 3rem;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.6fr;
+      gap: 5rem; align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap::before {
+      content: '';
+      position: absolute; top: -16px; left: -16px; right: 16px; bottom: 16px;
+      border: 1px solid var(--border); border-radius: 2px; z-index: 0;
+    }
+    .about-img-wrap img {
+      width: 100%; border-radius: 2px; position: relative; z-index: 1;
+      display: block; object-fit: cover; aspect-ratio: 3/4;
+    }
+    .about-pull {
+      font-family: var(--serif); font-style: italic; font-size: 1.15rem;
+      color: var(--muted); border-left: 2px solid var(--gold);
+      padding-left: 1.2rem; margin-bottom: 1.8rem; line-height: 1.5;
+    }
+    .about-text { color: #3a3530; line-height: 1.8; margin-bottom: 1.2rem; }
+    .about-text strong { color: var(--black); font-weight: 600; }
+    .about-stats {
+      display: flex; gap: 2.5rem; margin-top: 2.5rem;
+      padding-top: 2rem; border-top: 1px solid var(--border);
+    }
+    .stat-num {
+      font-family: var(--serif); font-size: 2.2rem; font-weight: 700;
+      color: var(--gold); line-height: 1;
+    }
+    .stat-label {
+      font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); margin-top: .3rem;
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--cream); }
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 4px; padding: 2rem 1.8rem;
+      transition: all .25s; position: relative; overflow: hidden;
+    }
+    .skill-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      height: 2px; width: 0; background: var(--gold);
+      transition: width .3s ease;
+    }
+    .skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.07); }
+    .skill-card:hover::after { width: 100%; }
+    .skill-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .skill-name {
+      font-family: var(--serif); font-size: 1.15rem;
+      font-weight: 700; margin-bottom: .8rem;
+    }
+    .skill-tags {
+      display: flex; flex-wrap: wrap; gap: .4rem;
+    }
+    .tag {
+      font-family: var(--mono); font-size: .65rem; letter-spacing: .06em;
+      padding: .25rem .6rem; border: 1px solid var(--border);
+      border-radius: 2px; color: var(--muted); background: var(--cream);
+    }
+
+    /* ── BRANDS ── */
+    #brands { background: var(--black); color: var(--white); }
+    #brands .section-title { color: var(--white); }
+    #brands .section-title em { color: var(--gold); }
+    .brands-list {
+      display: flex; flex-wrap: wrap; gap: .6rem;
+    }
+    .brand-pill {
+      padding: .55rem 1.2rem; border: 1px solid rgba(201,168,76,.3);
+      border-radius: 2px; font-size: .82rem; color: rgba(245,242,235,.7);
+      letter-spacing: .06em; transition: all .2s;
+    }
+    .brand-pill:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--cream); }
+    .projects-list { display: flex; flex-direction: column; gap: 4rem; }
+    .project-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr;
+      transition: box-shadow .25s;
+    }
+    .project-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,.09); }
+    .project-card.reverse { direction: rtl; }
+    .project-card.reverse > * { direction: ltr; }
+    .project-gallery {
+      position: relative; overflow: hidden; background: #1a1a1a;
+      min-height: 280px;
+    }
+    .project-slides {
+      display: flex; transition: transform .4s ease; height: 100%;
+    }
+    .project-slides img {
+      min-width: 100%; height: 100%; object-fit: cover;
+      flex-shrink: 0;
+    }
+    .gallery-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 100%; display: flex; justify-content: space-between;
+      padding: 0 .8rem; pointer-events: none;
+    }
+    .gallery-btn {
+      width: 32px; height: 32px; background: rgba(0,0,0,.55);
+      border: none; border-radius: 50%; color: #fff; font-size: .9rem;
+      cursor: pointer; pointer-events: all; transition: background .2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gallery-btn:hover { background: var(--gold); color: var(--black); }
+    .gallery-counter {
+      position: absolute; bottom: .8rem; right: .8rem;
+      font-family: var(--mono); font-size: .65rem; color: rgba(255,255,255,.7);
+      background: rgba(0,0,0,.4); padding: .2rem .5rem; border-radius: 2px;
+    }
+    .project-info { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .project-meta {
+      font-family: var(--mono); font-size: .65rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: .8rem;
+    }
+    .project-title {
+      font-family: var(--serif); font-size: 1.35rem;
+      font-weight: 700; margin-bottom: 1rem; line-height: 1.3;
+    }
+    .project-desc { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .project-stat {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-family: var(--mono); font-size: .72rem; color: var(--gold);
+      background: rgba(201,168,76,.08); border: 1px solid var(--border);
+      padding: .3rem .8rem; border-radius: 2px; margin-bottom: 1.5rem;
+    }
+    .project-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .78rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gold); text-decoration: none;
+      transition: gap .2s;
+    }
+    .project-link:hover { gap: .7rem; }
+
+    /* ── PUSH NOTIFICATIONS SHOWCASE ── */
+    .push-showcase {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 4px; padding: 2.5rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+      align-items: center;
+    }
+    .push-info {}
+    .push-phones { display: flex; flex-direction: column; gap: .8rem; }
+    .notif-bubble {
+      background: #1c1c1e; border-radius: 14px; padding: .9rem 1.1rem;
+      display: flex; align-items: flex-start; gap: .8rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.18);
+      animation: fadeUp .4s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .notif-bubble:nth-child(1) { animation-delay: .1s; }
+    .notif-bubble:nth-child(2) { animation-delay: .25s; }
+    .notif-bubble:nth-child(3) { animation-delay: .4s; }
+    .notif-bubble:nth-child(4) { animation-delay: .55s; }
+    .notif-bubble:nth-child(5) { animation-delay: .7s; }
+    .notif-icon { font-size: 1.1rem; margin-top: .1rem; }
+    .notif-text { font-size: .78rem; color: rgba(255,255,255,.9); line-height: 1.4; }
+    .notif-text strong { color: #fff; display: block; font-size: .7rem; margin-bottom: .2rem; letter-spacing: .05em; }
+    .notif-time { font-size: .62rem; color: rgba(255,255,255,.4); margin-left: auto; white-space: nowrap; }
+
+    /* ── SCRIPTS ── */
+    .scripts-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem;
+    }
+    .country-block { background: var(--white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .country-label {
+      padding: .7rem 1rem; background: var(--black); color: var(--white);
+      font-family: var(--mono); font-size: .68rem; letter-spacing: .18em;
+      text-transform: uppercase; display: flex; align-items: center; gap: .5rem;
+    }
+    .scripts-thumbs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    }
+    .scripts-thumbs img {
+      width: 100%; aspect-ratio: 9/16; object-fit: cover;
+      cursor: pointer; transition: opacity .2s;
+    }
+    .scripts-thumbs img:hover { opacity: .85; }
+
+    /* ── JOURNALISM ── */
+    #journalism { background: var(--white); }
+    .journalism-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+    }
+    .article-card {
+      padding: 1.8rem; border: 1px solid var(--border); border-radius: 4px;
+      transition: all .25s; position: relative; overflow: hidden;
+    }
+    .article-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: var(--gold); transform: scaleY(0);
+      transform-origin: bottom; transition: transform .3s;
+    }
+    .article-card:hover { background: var(--cream); }
+    .article-card:hover::before { transform: scaleY(1); }
+    .article-source {
+      font-family: var(--mono); font-size: .65rem; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: .5rem;
+    }
+    .article-title {
+      font-family: var(--serif); font-size: 1rem; font-weight: 700;
+      margin-bottom: .6rem; line-height: 1.4;
+    }
+    .article-desc { font-size: .85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .article-link {
+      font-size: .75rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gold); text-decoration: none;
+    }
+    .article-link:hover { text-decoration: underline; }
+    .article-card.featured {
+      grid-column: span 2; display: grid;
+      grid-template-columns: 280px 1fr; gap: 0; overflow: hidden;
+    }
+    .article-card.featured img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .article-card.featured .article-body { padding: 2rem; }
+    .tv-card {
+      border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+      grid-column: span 2;
+      display: flex; gap: 0; align-items: stretch;
+    }
+    .tv-info { padding: 2rem; flex: 1; }
+    .tv-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--black); color: var(--white); text-align: center; }
+    #contact .section-label { justify-content: center; }
+    #contact .section-title { color: var(--white); }
+    #contact .section-title em { color: var(--gold); }
+    .contact-grid {
+      display: flex; justify-content: center; gap: 4rem;
+      margin: 3rem 0;
+    }
+    .contact-item {}
+    .contact-label {
+      font-family: var(--mono); font-size: .65rem; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: .3rem;
+    }
+    .contact-value { font-size: 1rem; color: var(--white); }
+    .contact-quote {
+      font-family: var(--serif); font-style: italic; font-size: 1.1rem;
+      color: var(--muted); margin-top: 3rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080808; padding: 1.5rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .footer-copy { font-size: .75rem; color: #555; }
+    .footer-lang {
+      display: flex; gap: .8rem;
+    }
+    .lang-btn {
+      font-family: var(--mono); font-size: .65rem; letter-spacing: .15em;
+      text-transform: uppercase; padding: .3rem .7rem;
+      border: 1px solid rgba(255,255,255,.12); border-radius: 2px;
+      color: #555; text-decoration: none; transition: all .2s;
+    }
+    .lang-btn:hover, .lang-btn.active { border-color: var(--gold); color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-card { grid-template-columns: 1fr; }
+      .project-card.reverse { direction: ltr; }
+      .push-showcase { grid-template-columns: 1fr; }
+      .scripts-grid { grid-template-columns: 1fr; }
+      .journalism-grid { grid-template-columns: 1fr; }
+      .article-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+      .tv-card { grid-column: span 1; }
+      .contact-grid { flex-direction: column; gap: 1.5rem; align-items: center; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Natasha Seixas</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#journalism">Journalism</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-eyebrow">
+    <span></span> Content Manager · Creative Writer · Communicator <span></span>
+  </div>
+  <h1 class="hero-title">Natasha <em>Seixas</em></h1>
+  <p class="hero-subtitle">Where there are words, I am there.</p>
+  <p class="hero-quote">"The more human a brand, the deeper it connects."</p>
+  <div class="hero-ctas">
+    <a href="#projects" class="btn-primary">View Projects →</a>
+    <a href="#contact" class="btn-outline">Get in Touch</a>
+  </div>
+  <div class="hero-scroll">scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_001.jpg" alt="Natasha Seixas" />
+      </div>
+      <div>
+        <div class="section-label" data-num="01 —">About me</div>
+        <h2 class="section-title">Bachelor in <em>Communication</em></h2>
+        <p class="about-pull">"The more human a brand, the deeper it connects."</p>
+        <p class="about-text">
+          I'm a <strong>passionate writer</strong> with experience in journalism, advertising, and digital content creation. I've worked with brands across 4 countries: Ecuador, Colombia, Peru, and the Dominican Republic.
+        </p>
+        <p class="about-text">
+          I love <strong>telling stories that hook people</strong>, riding trends, and giving authentic voice to brands. I believe content isn't just information — it's emotion, connection, and community.
+        </p>
+        <p class="about-text">
+          My background in media — including <strong>Ecuavisa</strong> and <strong>Revista Vistazo</strong> — gave me the journalistic rigor I now apply to the world of digital marketing.
+        </p>
+        <div class="about-stats">
+          <div>
+            <div class="stat-num">3+</div>
+            <div class="stat-label">Years of experience</div>
+          </div>
+          <div>
+            <div class="stat-num">4</div>
+            <div class="stat-label">International markets</div>
+          </div>
+          <div>
+            <div class="stat-num">6+</div>
+            <div class="stat-label">Brands worked with</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label" data-num="02 —">What I do</div>
+    <h2 class="section-title">What I do <em>well</em></h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">✍️</div>
+        <div class="skill-name">Creative Writing</div>
+        <div class="skill-tags">
+          <span class="tag">Copywriting</span><span class="tag">Storytelling</span>
+          <span class="tag">Scripts</span><span class="tag">Landing pages</span>
+          <span class="tag">Radio ads</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📱</div>
+        <div class="skill-name">Social Media</div>
+        <div class="skill-tags">
+          <span class="tag">Instagram</span><span class="tag">TikTok</span>
+          <span class="tag">Captions</span><span class="tag">Trends</span>
+          <span class="tag">Metrics analysis</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎯</div>
+        <div class="skill-name">Content Strategy</div>
+        <div class="skill-tags">
+          <span class="tag">Editorial calendars</span><span class="tag">Brand strategy</span>
+          <span class="tag">SEO</span><span class="tag">Campaigns</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎬</div>
+        <div class="skill-name">Audiovisual Production</div>
+        <div class="skill-tags">
+          <span class="tag">CapCut</span><span class="tag">Canva</span>
+          <span class="tag">Premiere</span><span class="tag">Photoshop</span>
+          <span class="tag">Voice over</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📰</div>
+        <div class="skill-name">Journalism</div>
+        <div class="skill-tags">
+          <span class="tag">Reporting</span><span class="tag">Articles</span>
+          <span class="tag">Interviews</span><span class="tag">Coverage</span>
+          <span class="tag">On-camera presenting</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-name">Tools</div>
+        <div class="skill-tags">
+          <span class="tag">Google Workspace</span><span class="tag">Office</span>
+          <span class="tag">AI creative tools</span><span class="tag">Community mgmt</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section id="brands">
+  <div class="section-inner">
+    <div class="section-label" data-num="03 —">Brands</div>
+    <h2 class="section-title">Brands I've <em>worked with</em></h2>
+    <div class="brands-list">
+      <span class="brand-pill">La Ganga</span>
+      <span class="brand-pill">Procarsa · Surpapel</span>
+      <span class="brand-pill">Gomedic</span>
+      <span class="brand-pill">EcuaSuiza Seguros</span>
+      <span class="brand-pill">Junta de Beneficencia de Guayaquil</span>
+      <span class="brand-pill">Jucy by HealthyDrinks</span>
+      <span class="brand-pill">Upper</span>
+      <span class="brand-pill">Agencia La Destilería Creativa</span>
+      <span class="brand-pill">Ecuavisa</span>
+      <span class="brand-pill">Revista Vistazo</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label" data-num="04 —">Portfolio</div>
+    <h2 class="section-title">Featured <em>projects</em></h2>
+    <div class="projects-list">
+
+      <!-- Project 1 -->
+      <div class="project-card" id="proj1">
+        <div class="project-gallery">
+          <div class="project-slides" id="slides1">
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_002.png" alt="Slide 1" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_003.png" alt="Slide 2" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_004.png" alt="Slide 3" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_005.png" alt="Slide 4" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_006.png" alt="Slide 5" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_007.png" alt="Slide 6" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_008.png" alt="Slide 7" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_009.png" alt="Slide 8" />
+          </div>
+          <div class="gallery-nav">
+            <button class="gallery-btn" onclick="slide('slides1',-1)">‹</button>
+            <button class="gallery-btn" onclick="slide('slides1',1)">›</button>
+          </div>
+          <div class="gallery-counter" id="counter1">1 / 8</div>
+        </div>
+        <div class="project-info">
+          <div class="project-meta">Educational Content · Social Media · Upper</div>
+          <h3 class="project-title">Carousel "Quick Guide to Buying Abroad" — Upper Ecuador</h3>
+          <p class="project-desc">8-slide educational carousel featuring the "Michiprofesor" character — complex information about international shopping turned into entertaining, meme-style content. Achieved 98 likes and high engagement.</p>
+          <div class="project-stat">❤️ 98 likes · High engagement</div>
+          <a href="https://www.instagram.com/upper.ec" target="_blank" class="project-link">View account ↗</a>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card reverse" id="proj2">
+        <div class="project-gallery">
+          <div class="project-slides" id="slides2">
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_010.png" alt="Slide 1" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_011.png" alt="Slide 2" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_012.png" alt="Slide 3" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_013.png" alt="Slide 4" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_014.png" alt="Slide 5" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_015.png" alt="Slide 6" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_016.png" alt="Slide 7" />
+          </div>
+          <div class="gallery-nav">
+            <button class="gallery-btn" onclick="slide('slides2',-1)">‹</button>
+            <button class="gallery-btn" onclick="slide('slides2',1)">›</button>
+          </div>
+          <div class="gallery-counter" id="counter2">1 / 7</div>
+        </div>
+        <div class="project-info">
+          <div class="project-meta">Meme Content · Amazon Prime Day · Upper</div>
+          <h3 class="project-title">Carousel "Who suffers more?" — Amazon Prime Day Upper Ecuador</h3>
+          <p class="project-desc">7-slide carousel using humor and viral memes to communicate shopping tips during Amazon Prime Day. 65 likes and high virality.</p>
+          <div class="project-stat">❤️ 65 likes · Viral reach</div>
+          <a href="https://www.instagram.com/upper.ec" target="_blank" class="project-link">View account ↗</a>
+        </div>
+      </div>
+
+      <!-- Project 3 — Most viral -->
+      <div class="project-card" id="proj3">
+        <div class="project-gallery">
+          <div class="project-slides" id="slides3">
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_017.png" alt="Slide 1" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_018.png" alt="Slide 2" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_019.png" alt="Slide 3" />
+          </div>
+          <div class="gallery-nav">
+            <button class="gallery-btn" onclick="slide('slides3',-1)">‹</button>
+            <button class="gallery-btn" onclick="slide('slides3',1)">›</button>
+          </div>
+          <div class="gallery-counter" id="counter3">1 / 3</div>
+        </div>
+        <div class="project-info">
+          <div class="project-meta">New Feature Launch · Upper Ecuador</div>
+          <h3 class="project-title">🔥 "Our Miami warehouse is now Amazon Tax Free" — Upper</h3>
+          <p class="project-desc">Launch carousel for a new benefit: Tax-Free Amazon warehouse in Miami. Persuasive copy with a "With Tax vs Without Tax" comparison. Most viral post in the portfolio — 399 likes, 35 comments, 173 shares.</p>
+          <div class="project-stat">❤️ 399 likes · 35 comments · 173 shares</div>
+          <a href="https://www.instagram.com/upper.ec" target="_blank" class="project-link">View account ↗</a>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card reverse" id="proj4">
+        <div class="project-gallery">
+          <div class="project-slides" id="slides4">
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_020.png" alt="Slide 1" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_021.png" alt="Slide 2" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_022.png" alt="Slide 3" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_023.png" alt="Slide 4" />
+          </div>
+          <div class="gallery-nav">
+            <button class="gallery-btn" onclick="slide('slides4',-1)">‹</button>
+            <button class="gallery-btn" onclick="slide('slides4',1)">›</button>
+          </div>
+          <div class="gallery-counter" id="counter4">1 / 4</div>
+        </div>
+        <div class="project-info">
+          <div class="project-meta">Meme Content · Rates · Dominican Republic</div>
+          <h3 class="project-title">"That's a no from me" — Rates & benefits Upper RD</h3>
+          <p class="project-desc">4-slide carousel adapted to the Dominican market using the axolotl meme to communicate Upper RD's shipping rates from the USA and Spain in a fun, direct way.</p>
+          <a href="https://www.instagram.com/upper_do" target="_blank" class="project-link">View account ↗</a>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="project-card" id="proj5">
+        <div class="project-gallery">
+          <div class="project-slides" id="slides5">
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_024.png" alt="Slide 1" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_025.png" alt="Slide 2" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_026.png" alt="Slide 3" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_027.png" alt="Slide 4" />
+            <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_028.png" alt="Slide 5" />
+          </div>
+          <div class="gallery-nav">
+            <button class="gallery-btn" onclick="slide('slides5',-1)">‹</button>
+            <button class="gallery-btn" onclick="slide('slides5',1)">›</button>
+          </div>
+          <div class="gallery-counter" id="counter5">1 / 5</div>
+        </div>
+        <div class="project-info">
+          <div class="project-meta">Upper Tips · Savings Strategy · Colombia</div>
+          <h3 class="project-title">"Buy original sneakers cheaper" — Upper Tips Colombia</h3>
+          <p class="project-desc">5-slide carousel with strategic tips on buying original sneakers up to 70% cheaper from abroad. 422 organic views.</p>
+          <div class="project-stat">👁 422 organic views</div>
+          <a href="https://www.instagram.com/upper_co" target="_blank" class="project-link">View account ↗</a>
+        </div>
+      </div>
+
+      <!-- Project 6 — Landing Page -->
+      <div class="project-card reverse">
+        <div class="project-gallery" style="background: linear-gradient(135deg,#1a1a2e,#2d1b4e); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1rem; padding:2rem; text-align:center;">
+          <div style="font-size:2.5rem;">🎁</div>
+          <div style="color:#e8d5a3; font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; line-height:1.3;">Surprise <span style="font-style:italic;">Dad</span><br>with an unexpected gift</div>
+          <div style="color:rgba(255,255,255,.5); font-size:.75rem; letter-spacing:.1em; text-transform:uppercase;">Upper Ecuador · Father's Day 2025</div>
+          <a href="https://upper.com.ec/info/sorprende-a-papa-con-un-regalo-inesperado" target="_blank" style="margin-top:.5rem; padding:.5rem 1.2rem; background:#c9a84c; color:#000; border-radius:2px; font-size:.75rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; text-decoration:none;">LIVE LANDING PAGE ↗</a>
+        </div>
+        <div class="project-info">
+          <div class="project-meta">Copywriting · Landing Page · Father's Day · Upper EC</div>
+          <h3 class="project-title">Landing page "Surprise Dad" — Upper Ecuador</h3>
+          <p class="project-desc">Copywriting for a landing page featuring 5 dad profiles (tech lover, DIY, soccer fan, fashionista, collector) with real discounts of up to 80% on Amazon, Nordstrom Rack, and international stores. Persuasive copy with integrated CTAs and direct store links.</p>
+          <a href="https://upper.com.ec/info/sorprende-a-papa-con-un-regalo-inesperado" target="_blank" class="project-link">View live landing ↗</a>
+        </div>
+      </div>
+
+      <!-- Project 7 — Push Notifications -->
+      <div class="push-showcase">
+        <div class="push-info">
+          <div class="section-label" style="margin-bottom:.8rem;" data-num="">Copywriting · Push Notifications · In-App · Upper</div>
+          <h3 class="project-title" style="font-size:1.4rem;">Push notification copy — Upper App</h3>
+          <p class="project-desc">In-app notifications written for the Upper app, adapted to key seasonal moments: Christmas, Carnival, flight alerts, and action reminders. Short, direct copy with strategic emojis to maximize open rates.</p>
+        </div>
+        <div class="push-phones">
+          <div class="notif-bubble">
+            <div class="notif-icon">🎄</div>
+            <div class="notif-text">
+              <strong>Upper</strong>
+              Ship before Friday and get your purchases in time for Christmas! 🎄
+            </div>
+            <div class="notif-time">9:41 AM</div>
+          </div>
+          <div class="notif-bubble">
+            <div class="notif-icon">📦</div>
+            <div class="notif-text">
+              <strong>Upper</strong>
+              Complete your info and receive your orders on time 📦
+            </div>
+            <div class="notif-time">9:41 AM</div>
+          </div>
+          <div class="notif-bubble">
+            <div class="notif-icon">✈️</div>
+            <div class="notif-text">
+              <strong>Upper</strong>
+              The airline changed your flight ✈️ Check the updated details here.
+            </div>
+            <div class="notif-time">9:41 AM</div>
+          </div>
+          <div class="notif-bubble">
+            <div class="notif-icon">🎄</div>
+            <div class="notif-text">
+              <strong>Upper</strong>
+              Christmas comes with huge deals 🎄✨ Hunt the best offers here 👀
+            </div>
+            <div class="notif-time">9:41 AM</div>
+          </div>
+          <div class="notif-bubble">
+            <div class="notif-icon">👙</div>
+            <div class="notif-text">
+              <strong>Upper</strong>
+              Swimwear & accessories from $5! 👙☀️ Send them to your locker.
+            </div>
+            <div class="notif-time">9:41 AM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 8 — Scripts -->
+      <div style="background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 2.5rem;">
+        <div class="project-meta" style="margin-bottom:.5rem;">Scripts · Videos · Upper International</div>
+        <h3 class="project-title" style="margin-bottom:1rem;">Scripts produced across 4 countries</h3>
+        <p class="project-desc" style="margin-bottom:2rem;">Click any thumbnail to watch the full video.</p>
+        <div class="scripts-grid">
+          <div class="country-block">
+            <div class="country-label">🇪🇨 Ecuador — upper.ec</div>
+            <div class="scripts-thumbs">
+              <a href="https://www.instagram.com/upper.ec" target="_blank"><img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_036.png" alt="Script EC 1" /></a>
+              <a href="https://www.instagram.com/upper.ec" target="_blank"><img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_037.png" alt="Script EC 2" /></a>
+              <a href="https://www.instagram.com/upper.ec" target="_blank"><img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_038.png" alt="Script EC 3" /></a>
+            </div>
+          </div>
+          <div class="country-block">
+            <div class="country-label">🇩🇴 Dominican Republic — upper_do</div>
+            <div class="scripts-thumbs">
+              <a href="https://www.instagram.com/upper_do" target="_blank"><img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_039.png" alt="Script DO 1" /></a>
+              <a href="https://www.instagram.com/upper_do" target="_blank"><img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_040.png" alt="Script DO 2" /></a>
+            </div>
+          </div>
+          <div class="country-block">
+            <div class="country-label">🇨🇴 Colombia — upper_co</div>
+            <div class="scripts-thumbs">
+              <a href="https://www.instagram.com/upper_co" target="_blank"><img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_041.png" alt="Script CO 1" /></a>
+              <a href="https://www.instagram.com/upper_co" target="_blank"><img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_042.png" alt="Script CO 2" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- JOURNALISM -->
+<section id="journalism">
+  <div class="section-inner">
+    <div class="section-label" data-num="05 —">Press</div>
+    <h2 class="section-title">My journalistic <em>work</em></h2>
+    <div class="journalism-grid">
+
+      <div class="article-card">
+        <div class="article-source">Ecuavisa Digital · Economy</div>
+        <div class="article-title">Employers with IESS debt will have up to 6 years to pay</div>
+        <p class="article-desc">Informational article about the legal framework allowing employers with pending IESS debt to enter a payment agreement.</p>
+        <a href="https://www.ecuavisa.com/economia/los-empleadores-con-deudas-pendientes-tendran-un-maximo-de-seis-anos-para-pagarle-al-iess-20240430-0025.html" target="_blank" class="article-link">Read article ↗</a>
+      </div>
+
+      <div class="article-card">
+        <div class="article-source">Ecuavisa Digital · Entertainment</div>
+        <div class="article-title">The curious reunion of Jennifer Aniston and David Schwimmer at the Super Bowl</div>
+        <p class="article-desc">Coverage of the Friends actors' reunion in a Super Bowl ad, with analysis of its social media impact.</p>
+        <a href="https://www.ecuavisa.com/television/el-curioso-reencuentro-de-jennifer-aniston-y-david-schwimmer-en-un-anuncio-del-super-bowl-20240207-0069.html" target="_blank" class="article-link">Read article ↗</a>
+      </div>
+
+      <div class="article-card">
+        <div class="article-source">Ecuavisa Digital · Health & World</div>
+        <div class="article-title">AstraZeneca admitted its vaccine may cause side effects</div>
+        <p class="article-desc">Article on AstraZeneca's legal acknowledgment that its COVID-19 vaccine can cause rare side effects.</p>
+        <a href="https://www.ecuavisa.com/mundo/astrazeneca-admitio-en-un-documento-legal-que-su-vacuna-contra-el-covid-19-puede-provocar-efectos-secundarios-20240430-0010.html" target="_blank" class="article-link">Read article ↗</a>
+      </div>
+
+      <div class="article-card">
+        <div class="article-source">Revista Vistazo · Feature</div>
+        <div class="article-title">New agricultural techniques at corn fair</div>
+        <p class="article-desc">Coverage of the maize expo fair in Manabí, where technological innovations for Ecuador's agricultural sector were presented.</p>
+        <a href="https://www.vistazo.com/enfoque/nuevas-tecnicas-y-tecnologias-agricolas-se-presentaron-en-feria-maicera-FC3774777" target="_blank" class="article-link">Read article ↗</a>
+      </div>
+
+      <div class="article-card">
+        <div class="article-source">Revista Vistazo · Feature</div>
+        <div class="article-title">Companies bet on sustainable energy</div>
+        <p class="article-desc">Report on Ecuadorian companies implementing sustainability strategies for energy and water use.</p>
+        <a href="https://www.vistazo.com/enfoque/empresas-apuestan-por-un-uso-sostenible-de-la-energia-y-del-agua-FC3477799" target="_blank" class="article-link">Read article ↗</a>
+      </div>
+
+      <div class="article-card">
+        <div class="article-source">Revista Vistazo · Feature</div>
+        <div class="article-title">Guayaquil to host tech experience congress</div>
+        <p class="article-desc">Coverage of the Innova-T Latam 2022 launch — a congress featuring metaverses, NFTs, and virtual reality in Guayaquil.</p>
+        <a href="https://www.vistazo.com/enfoque/guayaquil-vivira-un-congreso-que-reunira-innovadoras-experiencias-tecnologicas-DA3147500" target="_blank" class="article-link">Read article ↗</a>
+      </div>
+
+      <div class="article-card featured">
+        <img src="https://natseixas.github.io/Portafolio-NatashaSeixas/images/img_043.jpg" alt="500 Mayores Empresas" />
+        <div class="article-body">
+          <div class="article-source">Revista Vistazo · Special Edition</div>
+          <div class="article-title" style="font-size:1.3rem; margin-bottom:.8rem;">500 Largest Companies in Ecuador</div>
+          <p class="article-desc">Written the annual special issue of Ecuador's 500 largest companies, analyzing post-pandemic economic recovery and the productive sector's resilience.</p>
+          <a href="https://www.vistazo.com/portafolio/500-mayores-empresas" target="_blank" class="article-link">View edition ↗</a>
+        </div>
+      </div>
+
+      <div class="tv-card">
+        <div class="tv-info">
+          <div class="article-source">TV · Reporting</div>
+          <div class="article-title" style="font-size:1.1rem; margin-bottom:.6rem;">On-camera presenting and reporting</div>
+          <p class="article-desc">Experience in front of camera as a presenter and reporter — event coverage and TV segment production.</p>
+          <div class="tv-links">
+            <a href="https://bit.ly/3WukeoK" target="_blank" class="article-link">Watch program ↗</a>
+            <a href="https://www.youtube.com/watch?v=u59GSxWWzH0" target="_blank" class="article-link">Watch report ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="article-card" style="grid-column: span 2; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <div class="article-source">Revista Vistazo · All articles</div>
+          <div class="article-title">View all my articles on Vistazo</div>
+          <p class="article-desc" style="margin-bottom:0;">10+ published articles on technology, sustainability, economy and Ecuador's productive sectors.</p>
+        </div>
+        <a href="https://www.vistazo.com/periodistas/-/meta/natasha-seixas-proano" target="_blank" class="btn-outline" style="white-space:nowrap;">View all ↗</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label" data-num="06 —">Contact</div>
+    <h2 class="section-title">Did my work <em>catch your eye?</em></h2>
+    <p style="color: var(--muted); max-width: 480px; margin: 0 auto;">Let's talk. I'm always open to new projects and opportunities.</p>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="contact-label">Location</div>
+        <div class="contact-value">Guayaquil, Ecuador</div>
+      </div>
+    </div>
+    <a href="https://www.upwork.com" target="_blank" class="btn-primary">Hire me on Upwork →</a>
+    <p class="contact-quote">"Where there are words, I am there." — Natasha Seixas</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2025 Natasha Seixas Proaño · Bachelor in Communication · Guayaquil, Ecuador</div>
+  <div class="footer-lang">
+    <a href="https://natseixas.github.io/Portafolio-NatashaSeixas/portafolio_natasha_light.html" class="lang-btn">ES</a>
+    <a href="#" class="lang-btn active">EN</a>
+  </div>
+</footer>
+
+<script>
+  // Gallery slider
+  const positions = {};
+  function slide(id, dir) {
+    const el = document.getElementById(id);
+    const imgs = el.querySelectorAll('img');
+    const total = imgs.length;
+    if (!positions[id]) positions[id] = 0;
+    positions[id] = (positions[id] + dir + total) % total;
+    el.style.transform = `translateX(-${positions[id] * 100}%)`;
+    const num = id.replace('slides','');
+    const counter = document.getElementById('counter' + num);
+    if (counter) counter.textContent = `${positions[id]+1} / ${total}`;
+  }
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.skill-card, .project-card, .article-card, .push-showcase').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
