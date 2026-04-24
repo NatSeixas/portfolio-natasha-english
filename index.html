@@ -245,14 +245,15 @@
     .project-card.reverse > * { direction: ltr; }
     .project-gallery {
       position: relative; overflow: hidden; background: #1a1a1a;
-      min-height: 280px;
+      height: 420px;
     }
     .project-slides {
-      display: flex; transition: transform .4s ease; height: 100%;
+      display: flex; transition: transform .4s ease;
+      height: 100%; width: 100%;
     }
     .project-slides img {
-      min-width: 100%; height: 100%; object-fit: cover;
-      flex-shrink: 0;
+      min-width: 100%; max-width: 100%; height: 100%;
+      object-fit: cover; object-position: center top; flex-shrink: 0;
     }
     .gallery-nav {
       position: absolute; top: 50%; transform: translateY(-50%);
@@ -462,10 +463,10 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-eyebrow">
-    <span></span> Content Manager · Creative Writer · Communicator <span></span>
+    <span></span> Spanish Copywriter · Content Manager · Creative Writer <span></span>
   </div>
   <h1 class="hero-title">Natasha <em>Seixas</em></h1>
-  <p class="hero-subtitle">Where there are words, I am there.</p>
+  <p class="hero-subtitle">Native Spanish copywriter for brands that want to connect.</p>
   <p class="hero-quote">"The more human a brand, the deeper it connects."</p>
   <div class="hero-ctas">
     <a href="#projects" class="btn-primary">View Projects →</a>
@@ -486,7 +487,7 @@
         <h2 class="section-title">Bachelor in <em>Communication</em></h2>
         <p class="about-pull">"The more human a brand, the deeper it connects."</p>
         <p class="about-text">
-          I'm a <strong>passionate writer</strong> with experience in journalism, advertising, and digital content creation. I've worked with brands across 4 countries: Ecuador, Colombia, Peru, and the Dominican Republic.
+          I'm a <strong>native Spanish copywriter</strong> with experience in journalism, advertising, and digital content creation. I write copy, scripts, captions, and campaigns <strong>entirely in Spanish</strong> — for brands targeting Latin American and Spanish-speaking audiences. I've worked across 4 countries: Ecuador, Colombia, Peru, and the Dominican Republic.
         </p>
         <p class="about-text">
           I love <strong>telling stories that hook people</strong>, riding trends, and giving authentic voice to brands. I believe content isn't just information — it's emotion, connection, and community.
@@ -926,7 +927,7 @@
         <div class="contact-value">Guayaquil, Ecuador</div>
       </div>
     </div>
-    <a href="https://www.upwork.com" target="_blank" class="btn-primary">Hire me on Upwork →</a>
+    <a href="https://www.upwork.com/freelancers/~01ca41b781902cadc5" target="_blank" class="btn-primary">Hire me on Upwork →</a>
     <p class="contact-quote">"Where there are words, I am there." — Natasha Seixas</p>
   </div>
 </section>
